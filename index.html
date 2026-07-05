@@ -59,6 +59,20 @@
   header.top h1{font-size:clamp(28px,6vw,44px);line-height:1.05}
   header.top .sub{color:var(--moon-dim);font-size:15px;margin-top:8px}
 
+  /* ---------- language switch ---------- */
+  .lang-switch{
+    position:absolute;top:16px;right:16px;display:flex;gap:3px;
+    background:var(--night-3);border:1px solid var(--mist-soft);border-radius:999px;padding:3px;
+  }
+  .lang-switch button{
+    font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.06em;
+    color:var(--moon-dim);background:transparent;border:none;padding:6px 12px;border-radius:999px;
+    cursor:pointer;transition:.15s;
+  }
+  .lang-switch button:hover{color:var(--moon)}
+  .lang-switch button.on{background:var(--candle);color:var(--night)}
+  @media(max-width:520px){.lang-switch{top:12px;right:12px}}
+
   /* ---------- step nav ---------- */
   nav.steps{
     display:flex;gap:6px;justify-content:center;flex-wrap:wrap;
@@ -309,62 +323,66 @@
 <body>
 
 <header class="top">
+  <div class="lang-switch" role="group" aria-label="Language / Idioma">
+    <button data-lang="es" class="on">ES</button>
+    <button data-lang="en">EN</button>
+  </div>
   <div class="moon" aria-hidden="true"></div>
-  <div class="kicker">Asistente del Narrador</div>
-  <h1>Los Hombres Lobo de Castronegro</h1>
-  <div class="sub">Configura la partida, consulta los roles y narra la noche en voz alta.</div>
+  <div class="kicker" data-i18n="kicker">Asistente del Narrador</div>
+  <h1 data-i18n="appTitle">Los Hombres Lobo de Castronegro</h1>
+  <div class="sub" data-i18n="headerSub">Configura la partida, consulta los roles y narra la noche en voz alta.</div>
 </header>
 
 <div class="wrap">
 
   <nav class="steps" id="nav">
-    <button data-go="intro" class="active"><span class="n">☾</span> Inicio</button>
-    <button data-go="v0"><span class="n">1</span> Jugadores</button>
-    <button data-go="v1"><span class="n">2</span> Roles</button>
-    <button data-go="v2"><span class="n">3</span> Reparto</button>
-    <button data-go="v3"><span class="n">4</span> Narrador</button>
-    <button data-go="v4"><span class="n">5</span> Referencia</button>
+    <button data-go="intro" class="active"><span class="n">☾</span> <span data-i18n="nav_intro">Inicio</span></button>
+    <button data-go="v0"><span class="n">1</span> <span data-i18n="nav_players">Jugadores</span></button>
+    <button data-go="v1"><span class="n">2</span> <span data-i18n="nav_roles">Roles</span></button>
+    <button data-go="v2"><span class="n">3</span> <span data-i18n="nav_deal">Reparto</span></button>
+    <button data-go="v3"><span class="n">4</span> <span data-i18n="nav_narrator">Narrador</span></button>
+    <button data-go="v4"><span class="n">5</span> <span data-i18n="nav_reference">Referencia</span></button>
   </nav>
 
   <!-- ===== VIEW INTRO ===== -->
   <section class="view on" id="intro">
     <div class="card">
-      <h2>El pueblo de Castronegro</h2>
-      <p class="lede">Castronegro era un pueblo tranquilo… hasta que, al caer la noche, algunos de sus vecinos empezaron a transformarse. Entre quienes se sientan a la mesa se esconden hombres lobo que, en la oscuridad, eligen a quién devorar; de día se confunden con el resto y juran inocencia.</p>
-      <p class="lede">Es un juego de deducción y faroleo para <b>8 a 18 jugadores</b>, guiado por un <b>Narrador</b> que conduce las noches y los días. Nadie enseña su carta: se gana hablando, observando y sospechando.</p>
+      <h2 data-i18n="intro_town_h">El pueblo de Castronegro</h2>
+      <p class="lede" data-i18n="intro_town_p1">Castronegro era un pueblo tranquilo… hasta que, al caer la noche, algunos de sus vecinos empezaron a transformarse. Entre quienes se sientan a la mesa se esconden hombres lobo que, en la oscuridad, eligen a quién devorar; de día se confunden con el resto y juran inocencia.</p>
+      <p class="lede" data-i18n="intro_town_p2">Es un juego de deducción y faroleo para <b>8 a 18 jugadores</b>, guiado por un <b>Narrador</b> que conduce las noches y los días. Nadie enseña su carta: se gana hablando, observando y sospechando.</p>
     </div>
 
     <div class="card">
-      <h2>El objetivo</h2>
-      <div class="lead">Cada bando quiere acabar con el otro. Si juega Cupido, puede aparecer un tercer bando.</div>
+      <h2 data-i18n="intro_goal_h">El objetivo</h2>
+      <div class="lead" data-i18n="intro_goal_lead">Cada bando quiere acabar con el otro. Si juega Cupido, puede aparecer un tercer bando.</div>
       <div class="grid3">
-        <div class="icard aldea"><div class="eyebrow">Mayoría</div><h3>Aldeanos</h3><p>Descubrir y linchar a todos los Hombres Lobo antes de que sea tarde.</p></div>
-        <div class="icard lobo"><div class="eyebrow">Minoría oculta</div><h3>Hombres Lobo</h3><p>Devorar al pueblo noche tras noche hasta dominar la aldea, sin ser descubiertos.</p></div>
-        <div class="icard amor"><div class="eyebrow">Bando opcional</div><h3>Enamorados</h3><p>Si Cupido los une, solo ganan si sobreviven juntos hasta el final.</p></div>
+        <div class="icard aldea"><div class="eyebrow" data-i18n="ic_village_eyebrow">Mayoría</div><h3 data-i18n="ic_village_h">Aldeanos</h3><p data-i18n="ic_village_p">Descubrir y linchar a todos los Hombres Lobo antes de que sea tarde.</p></div>
+        <div class="icard lobo"><div class="eyebrow" data-i18n="ic_wolf_eyebrow">Minoría oculta</div><h3 data-i18n="ic_wolf_h">Hombres Lobo</h3><p data-i18n="ic_wolf_p">Devorar al pueblo noche tras noche hasta dominar la aldea, sin ser descubiertos.</p></div>
+        <div class="icard amor"><div class="eyebrow" data-i18n="ic_lovers_eyebrow">Bando opcional</div><h3 data-i18n="ic_lovers_h">Enamorados</h3><p data-i18n="ic_lovers_p">Si Cupido los une, solo ganan si sobreviven juntos hasta el final.</p></div>
       </div>
     </div>
 
     <div class="card">
-      <h2>Cómo se juega</h2>
+      <h2 data-i18n="intro_play_h">Cómo se juega</h2>
       <div class="grid2">
-        <div class="icard night"><div class="eyebrow">Fase</div><h3>🌙 Noche</h3><p>Todos cierran los ojos. El Narrador llama por turnos a los personajes: los Hombres Lobo eligen víctima y los roles especiales actúan en silencio.</p></div>
-        <div class="icard day"><div class="eyebrow">Fase</div><h3>☀️ Día</h3><p>El pueblo despierta, se anuncian las muertes y todos debaten. Luego se vota: el más señalado es linchado y revela su carta.</p></div>
+        <div class="icard night"><div class="eyebrow" data-i18n="ic_night_eyebrow">Fase</div><h3 data-i18n="ic_night_h">🌙 Noche</h3><p data-i18n="ic_night_p">Todos cierran los ojos. El Narrador llama por turnos a los personajes: los Hombres Lobo eligen víctima y los roles especiales actúan en silencio.</p></div>
+        <div class="icard day"><div class="eyebrow" data-i18n="ic_day_eyebrow">Fase</div><h3 data-i18n="ic_day_h">☀️ Día</h3><p data-i18n="ic_day_p">El pueblo despierta, se anuncian las muertes y todos debaten. Luego se vota: el más señalado es linchado y revela su carta.</p></div>
       </div>
-      <div class="hint" style="margin-top:14px">Noche y día se alternan hasta que un bando elimina por completo al otro.</div>
+      <div class="hint" style="margin-top:14px" data-i18n="intro_play_hint">Noche y día se alternan hasta que un bando elimina por completo al otro.</div>
     </div>
 
     <div class="card">
-      <h2>Cómo usar esta app</h2>
-      <div class="lead">El asistente te acompaña paso a paso:</div>
+      <h2 data-i18n="intro_use_h">Cómo usar esta app</h2>
+      <div class="lead" data-i18n="intro_use_lead">El asistente te acompaña paso a paso:</div>
       <div class="ref-order">
-        <div class="ro"><div class="num">1</div><div class="lbl">Jugadores<small>Indica cuántos sois en la mesa</small></div></div>
-        <div class="ro"><div class="num">2</div><div class="lbl">Roles<small>Activa los personajes especiales y lee qué hace cada uno</small></div></div>
-        <div class="ro"><div class="num">3</div><div class="lbl">Reparto<small>Baraja y reparte las cartas en secreto</small></div></div>
-        <div class="ro"><div class="num">4</div><div class="lbl">Narrador<small>Lee el guion de la noche con voz en alto</small></div></div>
-        <div class="ro"><div class="num">5</div><div class="lbl">Referencia<small>Consulta cada carta y el orden de la noche</small></div></div>
+        <div class="ro"><div class="num">1</div><div class="lbl"><span data-i18n="use1_l">Jugadores</span><small data-i18n="use1_s">Indica cuántos sois en la mesa</small></div></div>
+        <div class="ro"><div class="num">2</div><div class="lbl"><span data-i18n="use2_l">Roles</span><small data-i18n="use2_s">Activa los personajes especiales y lee qué hace cada uno</small></div></div>
+        <div class="ro"><div class="num">3</div><div class="lbl"><span data-i18n="use3_l">Reparto</span><small data-i18n="use3_s">Baraja y reparte las cartas en secreto</small></div></div>
+        <div class="ro"><div class="num">4</div><div class="lbl"><span data-i18n="use4_l">Narrador</span><small data-i18n="use4_s">Lee el guion de la noche con voz en alto</small></div></div>
+        <div class="ro"><div class="num">5</div><div class="lbl"><span data-i18n="use5_l">Referencia</span><small data-i18n="use5_s">Consulta cada carta y el orden de la noche</small></div></div>
       </div>
       <div class="row">
-        <button class="btn primary" data-go="v0">Empezar →</button>
+        <button class="btn primary" data-go="v0" data-i18n="btn_start">Empezar →</button>
       </div>
     </div>
   </section>
@@ -372,17 +390,17 @@
   <!-- ===== VIEW 0: PLAYERS ===== -->
   <section class="view" id="v0">
     <div class="card">
-      <h2>¿Cuántos jugadores?</h2>
-      <div class="lead">Sin contar al Narrador. El juego admite de 8 a 18 jugadores.</div>
+      <h2 data-i18n="v0_h">¿Cuántos jugadores?</h2>
+      <div class="lead" data-i18n="v0_lead">Sin contar al Narrador. El juego admite de 8 a 18 jugadores.</div>
       <div class="counter">
-        <button id="minus" aria-label="Quitar jugador">−</button>
-        <div class="num"><span id="pcount">8</span><small>jugadores</small></div>
-        <button id="plus" aria-label="Añadir jugador">+</button>
+        <button id="minus" aria-label="−">−</button>
+        <div class="num"><span id="pcount">8</span><small data-i18n="players_small">jugadores</small></div>
+        <button id="plus" aria-label="+">+</button>
       </div>
-      <div class="range"><span>8 mín.</span><span>18 máx.</span></div>
-      <div class="hint" id="ww-hint">Lobos recomendados: <b>2</b> con 8–11 jugadores, <b>3</b> con 12–17 y <b>4</b> con 18. Podrás ajustarlo en el siguiente paso.</div>
+      <div class="range"><span data-i18n="range_min">8 mín.</span><span data-i18n="range_max">18 máx.</span></div>
+      <div class="hint" id="ww-hint"></div>
       <div class="row">
-        <button class="btn primary" data-go="v1">Elegir roles →</button>
+        <button class="btn primary" data-go="v1" data-i18n="btn_choose_roles">Elegir roles →</button>
       </div>
     </div>
   </section>
@@ -390,88 +408,88 @@
   <!-- ===== VIEW 1: ROLES ===== -->
   <section class="view" id="v1">
     <div class="card">
-      <h2>Composición de la partida</h2>
-      <div class="lead">Los Hombres Lobo y los Aldeanos son obligatorios. Activa los roles especiales que quieras incluir.</div>
+      <h2 data-i18n="v1_h">Composición de la partida</h2>
+      <div class="lead" data-i18n="v1_lead">Los Hombres Lobo y los Aldeanos son obligatorios. Activa los roles especiales que quieras incluir.</div>
 
       <div class="ww">
-        <div class="label"><strong>Hombres Lobo</strong><br><span id="ww-rec" style="color:var(--moon-dim);font-size:13px"></span></div>
+        <div class="label"><strong data-i18n="ww_label">Hombres Lobo</strong><br><span id="ww-rec" style="color:var(--moon-dim);font-size:13px"></span></div>
         <div class="ctrl">
-          <button id="ww-minus" aria-label="Menos lobos">−</button>
+          <button id="ww-minus" aria-label="−">−</button>
           <span class="c" id="ww-count">2</span>
-          <button id="ww-plus" aria-label="Más lobos">+</button>
+          <button id="ww-plus" aria-label="+">+</button>
         </div>
       </div>
 
       <div class="tally" style="margin-top:16px">
-        <div class="box lobo"><div class="v" id="t-lobo">2</div><div class="k">Hombres Lobo</div></div>
-        <div class="box esp"><div class="v" id="t-esp">0</div><div class="k">Especiales</div></div>
-        <div class="box aldea"><div class="v" id="t-aldea">6</div><div class="k">Aldeanos</div></div>
+        <div class="box lobo"><div class="v" id="t-lobo">2</div><div class="k" data-i18n="tally_wolves">Hombres Lobo</div></div>
+        <div class="box esp"><div class="v" id="t-esp">0</div><div class="k" data-i18n="tally_special">Especiales</div></div>
+        <div class="box aldea"><div class="v" id="t-aldea">6</div><div class="k" data-i18n="tally_villagers">Aldeanos</div></div>
       </div>
       <div class="warn" id="comp-warn"></div>
     </div>
 
     <div class="card">
-      <h2 style="margin-bottom:14px">Roles especiales</h2>
+      <h2 style="margin-bottom:14px" data-i18n="roles_special_h">Roles especiales</h2>
       <div id="role-list"></div>
     </div>
 
     <div class="row">
-      <button class="btn ghost" data-go="v0">← Jugadores</button>
-      <button class="btn primary" data-go="v2" id="to-reparto">Ver reparto →</button>
+      <button class="btn ghost" data-go="v0" data-i18n="btn_back_players">← Jugadores</button>
+      <button class="btn primary" data-go="v2" id="to-reparto" data-i18n="btn_see_deal">Ver reparto →</button>
     </div>
   </section>
 
   <!-- ===== VIEW 2: REPARTO ===== -->
   <section class="view" id="v2">
     <div class="card">
-      <h2>Resumen y reparto</h2>
+      <h2 data-i18n="v2_h">Resumen y reparto</h2>
       <div class="lead" id="reparto-lead"></div>
       <div class="tally">
-        <div class="box lobo"><div class="v" id="r-lobo">2</div><div class="k">Hombres Lobo</div></div>
-        <div class="box esp"><div class="v" id="r-esp">0</div><div class="k">Especiales</div></div>
-        <div class="box aldea"><div class="v" id="r-aldea">6</div><div class="k">Aldeanos</div></div>
+        <div class="box lobo"><div class="v" id="r-lobo">2</div><div class="k" data-i18n="tally_wolves">Hombres Lobo</div></div>
+        <div class="box esp"><div class="v" id="r-esp">0</div><div class="k" data-i18n="tally_special">Especiales</div></div>
+        <div class="box aldea"><div class="v" id="r-aldea">6</div><div class="k" data-i18n="tally_villagers">Aldeanos</div></div>
       </div>
       <div id="deck-line" style="margin-top:16px;font-size:13.5px;color:var(--silver)"></div>
     </div>
 
     <div class="card">
-      <h2>Reparto secreto</h2>
-      <div class="lead">Pasa el dispositivo de mano en mano. Cada jugador toca su asiento, ve su carta en privado y la oculta antes de pasarla al siguiente.</div>
+      <h2 data-i18n="v2_secret_h">Reparto secreto</h2>
+      <div class="lead" data-i18n="v2_secret_lead">Pasa el dispositivo de mano en mano. Cada jugador toca su asiento, ve su carta en privado y la oculta antes de pasarla al siguiente.</div>
       <div class="row" style="margin-top:0">
-        <button class="btn primary" id="shuffle">Barajar y repartir</button>
-        <button class="btn ghost" id="reset-deal">Reiniciar</button>
+        <button class="btn primary" id="shuffle" data-i18n="btn_shuffle">Barajar y repartir</button>
+        <button class="btn ghost" id="reset-deal" data-i18n="btn_reset">Reiniciar</button>
       </div>
       <div class="deal-grid" id="deal-grid"></div>
     </div>
 
     <div class="row">
-      <button class="btn ghost" data-go="v1">← Roles</button>
-      <button class="btn primary" data-go="v3">Modo Narrador →</button>
+      <button class="btn ghost" data-go="v1" data-i18n="btn_back_roles">← Roles</button>
+      <button class="btn primary" data-go="v3" data-i18n="btn_narrator_mode">Modo Narrador →</button>
     </div>
   </section>
 
   <!-- ===== VIEW 3: NARRADOR ===== -->
   <section class="view" id="v3">
     <div class="card">
-      <h2>Voz del Narrador</h2>
-      <div class="lead">La voz la genera tu navegador. La app elige por defecto una voz <b>latinoamericana</b> si la hay. Para el tono del juego, una voz grave y pausada funciona mejor.</div>
+      <h2 data-i18n="v3_h">Voz del Narrador</h2>
+      <div class="lead" data-i18n="v3_lead">La voz la genera tu navegador. La app elige por defecto una voz <b>latinoamericana</b> si la hay. Para el tono del juego, una voz grave y pausada funciona mejor.</div>
       <div class="voice-bar">
         <div class="field">
-          <label>Voz</label>
+          <label data-i18n="lbl_voice">Voz</label>
           <select id="voice-select"></select>
         </div>
         <div class="field">
-          <label>Velocidad <span class="val" id="rate-val">0.85</span></label>
+          <label><span data-i18n="lbl_speed">Velocidad</span> <span class="val" id="rate-val">0.85</span></label>
           <input type="range" id="rate" min="0.6" max="1.2" step="0.05" value="0.85">
         </div>
         <div class="field">
-          <label>Tono <span class="val" id="pitch-val">0.8</span></label>
+          <label><span data-i18n="lbl_pitch">Tono</span> <span class="val" id="pitch-val">0.8</span></label>
           <input type="range" id="pitch" min="0.4" max="1.2" step="0.05" value="0.8">
         </div>
       </div>
       <div class="row" style="margin-top:0">
-        <button class="btn ghost" id="test-voice">Probar voz</button>
-        <button class="btn ghost" id="stop-voice">Detener</button>
+        <button class="btn ghost" id="test-voice" data-i18n="btn_test_voice">Probar voz</button>
+        <button class="btn ghost" id="stop-voice" data-i18n="btn_stop">Detener</button>
       </div>
       <div class="nobr" id="voice-note"></div>
     </div>
@@ -480,42 +498,42 @@
       <div class="orb-wrap"><div class="orb" id="orb" aria-hidden="true"></div></div>
 
       <div class="phase-tabs">
-        <button data-phase="first" class="on night">Primera noche</button>
-        <button data-phase="night">Noche siguiente</button>
-        <button data-phase="day">Día</button>
+        <button data-phase="first" class="on night" data-i18n="phase_first">Primera noche</button>
+        <button data-phase="night" data-i18n="phase_next">Noche siguiente</button>
+        <button data-phase="day" data-i18n="phase_day">Día</button>
       </div>
 
       <div class="player-strip">
-        <button class="btn primary" id="play-all">▶ Narrar la fase entera</button>
-        <button class="btn ghost" id="stop-all">■ Detener</button>
+        <button class="btn primary" id="play-all" data-i18n="btn_play_all">▶ Narrar la fase entera</button>
+        <button class="btn ghost" id="stop-all" data-i18n="btn_stop_all">■ Detener</button>
       </div>
 
       <div class="script" id="script"></div>
     </div>
 
     <div class="row">
-      <button class="btn ghost" data-go="v2">← Reparto</button>
-      <button class="btn ghost" data-go="v0">Nueva partida</button>
+      <button class="btn ghost" data-go="v2" data-i18n="btn_back_deal">← Reparto</button>
+      <button class="btn ghost" data-go="v0" data-i18n="btn_new_game">Nueva partida</button>
     </div>
   </section>
 
   <!-- ===== VIEW 4: REFERENCIA ===== -->
   <section class="view" id="v4">
     <div class="card">
-      <h2>Referencia de roles</h2>
-      <div class="lead">Equivalencia entre la carta del manual original (en inglés), su nombre en español y la imagen que la identifica en el mazo.</div>
+      <h2 data-i18n="v4_h">Referencia de roles</h2>
+      <div class="lead" data-i18n="v4_lead">Equivalencia entre la carta del manual original (en inglés), su nombre en español y la imagen que la identifica en el mazo.</div>
       <div id="ref-list"></div>
     </div>
 
     <div class="card">
-      <h2>Orden de la noche</h2>
-      <div class="lead">El Narrador llama a los personajes en este orden (solo a los que estén en juego).</div>
+      <h2 data-i18n="night_order_h">Orden de la noche</h2>
+      <div class="lead" data-i18n="night_order_lead">El Narrador llama a los personajes en este orden (solo a los que estén en juego).</div>
       <div class="ref-order" id="ref-order"></div>
     </div>
 
     <div class="row">
-      <button class="btn ghost" data-go="v3">← Narrador</button>
-      <button class="btn ghost" data-go="v0">Nueva partida</button>
+      <button class="btn ghost" data-go="v3" data-i18n="btn_back_narrator">← Narrador</button>
+      <button class="btn ghost" data-go="v0" data-i18n="btn_new_game">Nueva partida</button>
     </div>
   </section>
 
@@ -531,47 +549,272 @@
     <div class="ln" id="rv-line"></div>
     <div class="sob" id="rv-sob" style="display:none"></div>
     <div class="row" style="justify-content:center;margin-top:18px">
-      <button class="btn primary" id="rv-hide">Ocultar y pasar</button>
+      <button class="btn primary" id="rv-hide" data-i18n="modal_hide">Ocultar y pasar</button>
     </div>
   </div>
 </div>
 
 <footer>
-  Basado en <i>Los Hombres Lobo de Castronegro</i> (Davidoff, des Pallières & Marly, 2001).<br>
-  La narración usa la voz integrada de tu navegador; funciona sin conexión.
+  <span data-i18n="footer_1">Basado en <i>Los Hombres Lobo de Castronegro</i> (Davidoff, des Pallières & Marly, 2001).</span><br>
+  <span data-i18n="footer_2">La narración usa la voz integrada de tu navegador; funciona sin conexión.</span>
 </footer>
 
 <script>
-/* ============ DATOS DE ROLES ============ */
-const ROLES = {
-  hombre_lobo:{name:"Hombre Lobo",glyph:"🐺",bando:"lobo",bandoTxt:"Bando Lobo",
-    desc:"Cada noche los Hombres Lobo despiertan y eligen por unanimidad a una víctima que será devorada.",
-    resp:"De día <b>fingen ser aldeanos</b>. Si no hay consenso, no hay víctima esa noche. Ganan cuando ya no quedan aldeanos que se les opongan."},
-  ladron:{name:"Ladrón",glyph:"🗝️",bando:"aldea",bandoTxt:"Aldea (puede cambiar)",
-    desc:"Al incluirlo se añaden dos cartas extra al mazo. En la preparación ve las dos cartas sobrantes y decide si cambia la suya por una de ellas.",
-    resp:"Si ambas cartas sobrantes son Hombre Lobo, está <b>obligado a robar una</b>. Solo actúa la primera noche."},
-  cupido:{name:"Cupido",glyph:"💘",bando:"amor",bandoTxt:"Crea el bando enamorado",
-    desc:"En la preparación elige a dos jugadores (puede incluirse a sí mismo) y los enamora. Después pasa a ser un aldeano normal.",
-    resp:"Los enamorados forman su <b>propio bando</b>: si uno muere, el otro se suicida. Solo ganan si sobreviven juntos hasta el final."},
-  vidente:{name:"Vidente",glyph:"🔮",bando:"aldea",bandoTxt:"Bando Aldea",
-    desc:"Cada noche señala a un jugador y el Narrador le revela en secreto su carta.",
-    resp:"Conoce identidades, pero debe usar su información <b>con cuidado</b> para no delatarse ante los lobos."},
-  bruja:{name:"Bruja",glyph:"⚗️",bando:"aldea",bandoTxt:"Bando Aldea",
-    desc:"Tras el turno de los lobos dispone de dos pociones de un solo uso: la de la Vida (salva a la víctima, incluso a sí misma) y la de la Muerte (elimina a un jugador).",
-    resp:"Puede usar una, ninguna o ambas en la misma noche. Una vez usada, <b>cada poción se pierde para siempre</b>."},
-  nina:{name:"Niña",glyph:"👧",bando:"aldea",bandoTxt:"Bando Aldea",
-    desc:"Durante el turno de los Hombres Lobo puede entreabrir los ojos para intentar descubrir quiénes son.",
-    resp:"Debe ser muy discreta: <b>si la pillan, es la víctima de esa noche</b>. Prohibido taparse la cara o mirar al suelo en la noche."},
-  cazador:{name:"Cazador",glyph:"🏹",bando:"aldea",bandoTxt:"Bando Aldea",
-    desc:"Es un aldeano corriente, pero le queda un último disparo.",
-    resp:"Cuando muere por cualquier causa, <b>elige al instante a otro jugador</b> para llevárselo con él. La decisión es solo suya."},
-  alguacil:{name:"Alguacil",glyph:"⭐",bando:"func",bandoTxt:"Función · sin bando",
-    desc:"Cargo elegido por votación del pueblo. No es una carta ni pertenece a ningún bando.",
-    resp:"Su <b>voto vale doble</b> y en caso de empate decide a quién se lincha. Al morir nombra a su sucesor. Muchos grupos limitan el cargo a una sola de las dos habilidades."},
-  aldeano:{name:"Aldeano",glyph:"🧑‍🌾",bando:"aldea",bandoTxt:"Bando Aldea",
-    desc:"No tiene poderes especiales, solo su intuición y su sentido común.",
-    resp:"Debe debatir, deducir y votar para <b>descubrir y linchar a los Hombres Lobo</b>."}
+/* ============ IDIOMA / LANGUAGE ============ */
+let lang = "es"; // español por defecto
+
+const STR = {
+  es:{
+    title:"Los Hombres Lobo de Castronegro — Asistente del Narrador",
+    kicker:"Asistente del Narrador",
+    appTitle:"Los Hombres Lobo de Castronegro",
+    headerSub:"Configura la partida, consulta los roles y narra la noche en voz alta.",
+    nav_intro:"Inicio", nav_players:"Jugadores", nav_roles:"Roles", nav_deal:"Reparto", nav_narrator:"Narrador", nav_reference:"Referencia",
+
+    intro_town_h:"El pueblo de Castronegro",
+    intro_town_p1:"Castronegro era un pueblo tranquilo… hasta que, al caer la noche, algunos de sus vecinos empezaron a transformarse. Entre quienes se sientan a la mesa se esconden hombres lobo que, en la oscuridad, eligen a quién devorar; de día se confunden con el resto y juran inocencia.",
+    intro_town_p2:"Es un juego de deducción y faroleo para <b>8 a 18 jugadores</b>, guiado por un <b>Narrador</b> que conduce las noches y los días. Nadie enseña su carta: se gana hablando, observando y sospechando.",
+    intro_goal_h:"El objetivo",
+    intro_goal_lead:"Cada bando quiere acabar con el otro. Si juega Cupido, puede aparecer un tercer bando.",
+    ic_village_eyebrow:"Mayoría", ic_village_h:"Aldeanos", ic_village_p:"Descubrir y linchar a todos los Hombres Lobo antes de que sea tarde.",
+    ic_wolf_eyebrow:"Minoría oculta", ic_wolf_h:"Hombres Lobo", ic_wolf_p:"Devorar al pueblo noche tras noche hasta dominar la aldea, sin ser descubiertos.",
+    ic_lovers_eyebrow:"Bando opcional", ic_lovers_h:"Enamorados", ic_lovers_p:"Si Cupido los une, solo ganan si sobreviven juntos hasta el final.",
+    intro_play_h:"Cómo se juega",
+    ic_night_eyebrow:"Fase", ic_night_h:"🌙 Noche", ic_night_p:"Todos cierran los ojos. El Narrador llama por turnos a los personajes: los Hombres Lobo eligen víctima y los roles especiales actúan en silencio.",
+    ic_day_eyebrow:"Fase", ic_day_h:"☀️ Día", ic_day_p:"El pueblo despierta, se anuncian las muertes y todos debaten. Luego se vota: el más señalado es linchado y revela su carta.",
+    intro_play_hint:"Noche y día se alternan hasta que un bando elimina por completo al otro.",
+    intro_use_h:"Cómo usar esta app",
+    intro_use_lead:"El asistente te acompaña paso a paso:",
+    use1_l:"Jugadores", use1_s:"Indica cuántos sois en la mesa",
+    use2_l:"Roles", use2_s:"Activa los personajes especiales y lee qué hace cada uno",
+    use3_l:"Reparto", use3_s:"Baraja y reparte las cartas en secreto",
+    use4_l:"Narrador", use4_s:"Lee el guion de la noche con voz en alto",
+    use5_l:"Referencia", use5_s:"Consulta cada carta y el orden de la noche",
+    btn_start:"Empezar →",
+
+    v0_h:"¿Cuántos jugadores?",
+    v0_lead:"Sin contar al Narrador. El juego admite de 8 a 18 jugadores.",
+    players_small:"jugadores", range_min:"8 mín.", range_max:"18 máx.",
+    ww_hint:"Lobos recomendados: <b>2</b> con 8–11 jugadores, <b>3</b> con 12–17 y <b>4</b> con 18. Podrás ajustarlo en el siguiente paso.",
+    btn_choose_roles:"Elegir roles →",
+
+    v1_h:"Composición de la partida",
+    v1_lead:"Los Hombres Lobo y los Aldeanos son obligatorios. Activa los roles especiales que quieras incluir.",
+    ww_label:"Hombres Lobo",
+    tally_wolves:"Hombres Lobo", tally_special:"Especiales", tally_villagers:"Aldeanos",
+    roles_special_h:"Roles especiales",
+    btn_back_players:"← Jugadores", btn_see_deal:"Ver reparto →",
+    tag_function:"función", resp_label:"Responsabilidad:",
+
+    v2_h:"Resumen y reparto",
+    v2_secret_h:"Reparto secreto",
+    v2_secret_lead:"Pasa el dispositivo de mano en mano. Cada jugador toca su asiento, ve su carta en privado y la oculta antes de pasarla al siguiente.",
+    btn_shuffle:"Barajar y repartir", btn_reset:"Reiniciar",
+    btn_back_roles:"← Roles", btn_narrator_mode:"Modo Narrador →",
+
+    v3_h:"Voz del Narrador",
+    v3_lead:"La voz la genera tu navegador. La app elige por defecto una voz <b>latinoamericana</b> si la hay. Para el tono del juego, una voz grave y pausada funciona mejor.",
+    lbl_voice:"Voz", lbl_speed:"Velocidad", lbl_pitch:"Tono",
+    btn_test_voice:"Probar voz", btn_stop:"Detener",
+    phase_first:"Primera noche", phase_next:"Noche siguiente", phase_day:"Día",
+    btn_play_all:"▶ Narrar la fase entera", btn_stop_all:"■ Detener",
+    btn_back_deal:"← Reparto", btn_new_game:"Nueva partida",
+
+    v4_h:"Referencia de roles",
+    v4_lead:"Equivalencia entre la carta del manual original (en inglés), su nombre en español y la imagen que la identifica en el mazo.",
+    night_order_h:"Orden de la noche",
+    night_order_lead:"El Narrador llama a los personajes en este orden (solo a los que estén en juego).",
+    btn_back_narrator:"← Narrador",
+    ref_img_label:"Imagen de la carta:",
+
+    modal_hide:"Ocultar y pasar",
+    footer_1:"Basado en <i>Los Hombres Lobo de Castronegro</i> (Davidoff, des Pallières & Marly, 2001).",
+    footer_2:"La narración usa la voz integrada de tu navegador; funciona sin conexión.",
+
+    player:"Jugador",
+    deal_empty:'Pulsa <b>“Barajar y repartir”</b> para generar las cartas.',
+    leftover_label:"Cartas sobrantes que puedes robar:",
+    invalid_comp:"Composición inválida: revisa el paso de roles.",
+    test_voice_text:"El pueblo de Castronegro se entrega al sueño. Cerrad todos los ojos... la noche ha comenzado.",
+
+    /* narración */
+    n_nightfall_t:"Anochece", n_nightfall_l:"El pueblo de Castronegro se entrega al sueño. Cerrad todos los ojos. La noche ha comenzado.",
+    n_thief_t:"Ladrón", n_thief_l:"Ladrón, despierta. Aquí tienes las dos cartas sobrantes. Decide si conservas tu destino o robas uno nuevo. Ladrón, vuelve a dormir.",
+    n_cupid_t:"Cupido", n_cupid_l:"Cupido, despierta. Lanza tus flechas y une a dos corazones que latirán como uno solo. Cupido, vuelve a dormir. Enamorados, abrid los ojos y reconoceos en silencio. Ahora, volved a dormir.",
+    n_seer_t:"Vidente", n_seer_l:"Vidente, despierta. Señala a quien deseas conocer. Te muestro su verdadero rostro. Vidente, vuelve a dormir.",
+    n_wolves_t:"Hombres Lobo", n_wolves_girl_suffix:" · Niña",
+    n_wolves_l_base:"Hombres Lobo, despertad. En silencio, elegid juntos a vuestra presa de esta noche.",
+    n_wolves_l_girl:" Niña, si te atreves, observa entre las sombras; pero que no te descubran.",
+    n_wolves_l_tail:" Hombres Lobo, ya tenéis vuestra víctima. Volved a dormir.",
+    n_witch_t:"Bruja", n_witch_l:"Bruja, despierta. Esta noche la víctima es quien yo te señalo. ¿Usarás tu Poción de la Vida para salvarle? ¿Emplearás tu Poción de la Muerte contra alguien? Decide. Bruja, vuelve a dormir.",
+    n_dawn_t:"Amanece", n_dawn_l:"Amanece en Castronegro. Que todo el pueblo abra los ojos. Veamos qué nos ha dejado la noche.",
+    n_victims_t:"Las víctimas", n_victims_l:"Esta noche ha caído quien yo señalo. Revela tu carta. Que descanse.",
+    n_hunter_t:"Recordatorio · Cazador", n_hunter_l:"Si el Cazador ha muerto, que dispare ahora su última flecha y elija a quién se lleva consigo.",
+    n_debate_t:"Debate", n_debate_l:"Tenéis tiempo para debatir, acusar y defenderos. Buscad al lobo que se esconde entre vosotros.",
+    n_vote_t:"Votación", n_vote_l_base:"Ha llegado la hora. Señalad con el dedo a quien queréis linchar. El pueblo ha hablado: muestra tu carta.", n_vote_l_sheriff:" Recordad que el voto del Alguacil cuenta doble.",
+    n_nightend_t:"Cae la noche", n_nightend_l:"El pueblo vuelve a dormir. Que regrese la oscuridad sobre Castronegro."
+  },
+  en:{
+    title:"The Werewolves of Castronegro — Narrator's Assistant",
+    kicker:"Narrator's Assistant",
+    appTitle:"The Werewolves of Castronegro",
+    headerSub:"Set up the game, review the roles, and narrate the night out loud.",
+    nav_intro:"Home", nav_players:"Players", nav_roles:"Roles", nav_deal:"Deal", nav_narrator:"Narrator", nav_reference:"Reference",
+
+    intro_town_h:"The village of Castronegro",
+    intro_town_p1:"Castronegro was a peaceful village… until, when night fell, some of its people began to transform. Hidden among those seated at the table are werewolves who, in the dark, choose whom to devour; by day they blend in with everyone else and swear they're innocent.",
+    intro_town_p2:"It's a game of deduction and bluffing for <b>8 to 18 players</b>, guided by a <b>Narrator</b> who runs the nights and the days. No one shows their card: you win by talking, observing, and suspecting.",
+    intro_goal_h:"The goal",
+    intro_goal_lead:"Each team wants to wipe out the other. If Cupid is in play, a third team can appear.",
+    ic_village_eyebrow:"Majority", ic_village_h:"Villagers", ic_village_p:"Uncover and lynch every Werewolf before it's too late.",
+    ic_wolf_eyebrow:"Hidden minority", ic_wolf_h:"Werewolves", ic_wolf_p:"Devour the village night after night until you rule it, without being discovered.",
+    ic_lovers_eyebrow:"Optional team", ic_lovers_h:"Lovers", ic_lovers_p:"If Cupid unites them, they win only by surviving together to the very end.",
+    intro_play_h:"How to play",
+    ic_night_eyebrow:"Phase", ic_night_h:"🌙 Night", ic_night_p:"Everyone closes their eyes. The Narrator calls the characters in turn: the Werewolves choose a victim and the special roles act in silence.",
+    ic_day_eyebrow:"Phase", ic_day_h:"☀️ Day", ic_day_p:"The village wakes, the deaths are announced, and everyone debates. Then they vote: the most accused is lynched and reveals their card.",
+    intro_play_hint:"Night and day alternate until one team completely eliminates the other.",
+    intro_use_h:"How to use this app",
+    intro_use_lead:"The assistant guides you step by step:",
+    use1_l:"Players", use1_s:"Set how many of you are at the table",
+    use2_l:"Roles", use2_s:"Enable the special characters and read what each one does",
+    use3_l:"Deal", use3_s:"Shuffle and deal the cards in secret",
+    use4_l:"Narrator", use4_s:"Read the night's script out loud",
+    use5_l:"Reference", use5_s:"Look up every card and the night order",
+    btn_start:"Start →",
+
+    v0_h:"How many players?",
+    v0_lead:"Not counting the Narrator. The game supports 8 to 18 players.",
+    players_small:"players", range_min:"8 min.", range_max:"18 max.",
+    ww_hint:"Recommended wolves: <b>2</b> for 8–11 players, <b>3</b> for 12–17, and <b>4</b> for 18. You can adjust it in the next step.",
+    btn_choose_roles:"Choose roles →",
+
+    v1_h:"Game composition",
+    v1_lead:"Werewolves and Villagers are mandatory. Enable any special roles you want to include.",
+    ww_label:"Werewolves",
+    tally_wolves:"Werewolves", tally_special:"Special", tally_villagers:"Villagers",
+    roles_special_h:"Special roles",
+    btn_back_players:"← Players", btn_see_deal:"See deal →",
+    tag_function:"role", resp_label:"Responsibility:",
+
+    v2_h:"Summary & deal",
+    v2_secret_h:"Secret deal",
+    v2_secret_lead:"Pass the device from hand to hand. Each player taps their seat, sees their card privately, and hides it before passing it on.",
+    btn_shuffle:"Shuffle & deal", btn_reset:"Reset",
+    btn_back_roles:"← Roles", btn_narrator_mode:"Narrator mode →",
+
+    v3_h:"Narrator's voice",
+    v3_lead:"The voice is generated by your browser. The app defaults to an <b>English</b> voice if one is available. For the game's mood, a deep, slow voice works best.",
+    lbl_voice:"Voice", lbl_speed:"Speed", lbl_pitch:"Pitch",
+    btn_test_voice:"Test voice", btn_stop:"Stop",
+    phase_first:"First night", phase_next:"Next night", phase_day:"Day",
+    btn_play_all:"▶ Narrate the whole phase", btn_stop_all:"■ Stop",
+    btn_back_deal:"← Deal", btn_new_game:"New game",
+
+    v4_h:"Role reference",
+    v4_lead:"How the original manual card (in English), its localized name, and the artwork that identifies it in the deck line up.",
+    night_order_h:"Night order",
+    night_order_lead:"The Narrator calls the characters in this order (only those in play).",
+    btn_back_narrator:"← Narrator",
+    ref_img_label:"Card artwork:",
+
+    modal_hide:"Hide & pass",
+    footer_1:"Based on <i>The Werewolves of Miller's Hollow</i> (Davidoff, des Pallières & Marly, 2001).",
+    footer_2:"Narration uses your browser's built-in voice; it works offline.",
+
+    player:"Player",
+    deal_empty:'Tap <b>“Shuffle &amp; deal”</b> to generate the cards.',
+    leftover_label:"Leftover cards you can steal:",
+    invalid_comp:"Invalid composition: check the roles step.",
+    test_voice_text:"The village of Castronegro drifts into sleep. Close your eyes... the night has begun.",
+
+    /* narration */
+    n_nightfall_t:"Nightfall", n_nightfall_l:"The village of Castronegro drifts into sleep. Everyone, close your eyes. The night has begun.",
+    n_thief_t:"Thief", n_thief_l:"Thief, wake up. Here are the two leftover cards. Decide whether to keep your fate or steal a new one. Thief, go back to sleep.",
+    n_cupid_t:"Cupid", n_cupid_l:"Cupid, wake up. Loose your arrows and join two hearts that will beat as one. Cupid, go back to sleep. Lovers, open your eyes and recognize each other in silence. Now, go back to sleep.",
+    n_seer_t:"Seer", n_seer_l:"Seer, wake up. Point to the one you wish to know. I reveal their true face to you. Seer, go back to sleep.",
+    n_wolves_t:"Werewolves", n_wolves_girl_suffix:" · Little Girl",
+    n_wolves_l_base:"Werewolves, wake up. In silence, choose together your prey for tonight.",
+    n_wolves_l_girl:" Little Girl, if you dare, watch from the shadows; but don't get caught.",
+    n_wolves_l_tail:" Werewolves, you have your victim. Go back to sleep.",
+    n_witch_t:"Witch", n_witch_l:"Witch, wake up. Tonight's victim is the one I point to. Will you use your Healing potion to save them? Will you use your Death potion against someone? Decide. Witch, go back to sleep.",
+    n_dawn_t:"Dawn", n_dawn_l:"Dawn breaks over Castronegro. Let the whole village open its eyes. Let's see what the night has left us.",
+    n_victims_t:"The victims", n_victims_l:"Tonight the one I point to has fallen. Reveal your card. May they rest.",
+    n_hunter_t:"Reminder · Hunter", n_hunter_l:"If the Hunter has died, let him now fire his last arrow and choose who to take with him.",
+    n_debate_t:"Debate", n_debate_l:"You have time to debate, accuse, and defend yourselves. Find the wolf hiding among you.",
+    n_vote_t:"Vote", n_vote_l_base:"The hour has come. Point your finger at the one you want to lynch. The village has spoken: show your card.", n_vote_l_sheriff:" Remember that the Sheriff's vote counts double.",
+    n_nightend_t:"Night falls", n_nightend_l:"The village goes back to sleep. Let darkness return over Castronegro."
+  }
 };
+function t(k){ const v = STR[lang] && STR[lang][k]; return v!=null ? v : (STR.es[k]!=null?STR.es[k]:""); }
+
+/* ============ DATOS DE ROLES (bilingüe) ============ */
+const ROLES = {
+  hombre_lobo:{glyph:"🐺",bando:"lobo",
+    es:{name:"Hombre Lobo",bandoTxt:"Bando Lobo",
+      desc:"Cada noche los Hombres Lobo despiertan y eligen por unanimidad a una víctima que será devorada.",
+      resp:"De día <b>fingen ser aldeanos</b>. Si no hay consenso, no hay víctima esa noche. Ganan cuando ya no quedan aldeanos que se les opongan."},
+    en:{name:"Werewolf",bandoTxt:"Werewolf team",
+      desc:"Each night the Werewolves wake and unanimously choose a victim to devour.",
+      resp:"By day they <b>pretend to be villagers</b>. If they can't agree, there's no victim that night. They win when no villagers remain to oppose them."}},
+  ladron:{glyph:"🗝️",bando:"aldea",
+    es:{name:"Ladrón",bandoTxt:"Aldea (puede cambiar)",
+      desc:"Al incluirlo se añaden dos cartas extra al mazo. En la preparación ve las dos cartas sobrantes y decide si cambia la suya por una de ellas.",
+      resp:"Si ambas cartas sobrantes son Hombre Lobo, está <b>obligado a robar una</b>. Solo actúa la primera noche."},
+    en:{name:"Thief",bandoTxt:"Village (may change)",
+      desc:"Including this role adds two extra cards to the deck. During setup the Thief sees the two leftover cards and decides whether to swap their card for one of them.",
+      resp:"If both leftover cards are Werewolves, the Thief is <b>forced to take one</b>. Acts only on the first night."}},
+  cupido:{glyph:"💘",bando:"amor",
+    es:{name:"Cupido",bandoTxt:"Crea el bando enamorado",
+      desc:"En la preparación elige a dos jugadores (puede incluirse a sí mismo) y los enamora. Después pasa a ser un aldeano normal.",
+      resp:"Los enamorados forman su <b>propio bando</b>: si uno muere, el otro se suicida. Solo ganan si sobreviven juntos hasta el final."},
+    en:{name:"Cupid",bandoTxt:"Creates the lovers' team",
+      desc:"During setup, Cupid picks two players (possibly including themselves) and makes them fall in love. Afterwards Cupid becomes an ordinary villager.",
+      resp:"The lovers form their <b>own team</b>: if one dies, the other dies of grief. They win only if they survive together to the end."}},
+  vidente:{glyph:"🔮",bando:"aldea",
+    es:{name:"Vidente",bandoTxt:"Bando Aldea",
+      desc:"Cada noche señala a un jugador y el Narrador le revela en secreto su carta.",
+      resp:"Conoce identidades, pero debe usar su información <b>con cuidado</b> para no delatarse ante los lobos."},
+    en:{name:"Seer",bandoTxt:"Village team",
+      desc:"Each night the Seer points to a player and the Narrator secretly reveals that player's card.",
+      resp:"The Seer learns identities but must use that knowledge <b>carefully</b> so as not to expose themselves to the wolves."}},
+  bruja:{glyph:"⚗️",bando:"aldea",
+    es:{name:"Bruja",bandoTxt:"Bando Aldea",
+      desc:"Tras el turno de los lobos dispone de dos pociones de un solo uso: la de la Vida (salva a la víctima, incluso a sí misma) y la de la Muerte (elimina a un jugador).",
+      resp:"Puede usar una, ninguna o ambas en la misma noche. Una vez usada, <b>cada poción se pierde para siempre</b>."},
+    en:{name:"Witch",bandoTxt:"Village team",
+      desc:"After the wolves' turn, the Witch has two single-use potions: the Healing potion (saves the victim, even herself) and the Death potion (kills a player).",
+      resp:"She may use one, none, or both in the same night. Once used, <b>each potion is gone forever</b>."}},
+  nina:{glyph:"👧",bando:"aldea",
+    es:{name:"Niña",bandoTxt:"Bando Aldea",
+      desc:"Durante el turno de los Hombres Lobo puede entreabrir los ojos para intentar descubrir quiénes son.",
+      resp:"Debe ser muy discreta: <b>si la pillan, es la víctima de esa noche</b>. Prohibido taparse la cara o mirar al suelo en la noche."},
+    en:{name:"Little Girl",bandoTxt:"Village team",
+      desc:"During the Werewolves' turn she may peek through half-open eyes to try to discover who they are.",
+      resp:"She must be very discreet: <b>if caught, she becomes that night's victim</b>. Covering the face or looking down during the night is forbidden."}},
+  cazador:{glyph:"🏹",bando:"aldea",
+    es:{name:"Cazador",bandoTxt:"Bando Aldea",
+      desc:"Es un aldeano corriente, pero le queda un último disparo.",
+      resp:"Cuando muere por cualquier causa, <b>elige al instante a otro jugador</b> para llevárselo con él. La decisión es solo suya."},
+    en:{name:"Hunter",bandoTxt:"Village team",
+      desc:"An ordinary villager, but with one last shot left.",
+      resp:"When he dies by any cause, he <b>immediately chooses another player</b> to take down with him. The choice is his alone."}},
+  alguacil:{glyph:"⭐",bando:"func",
+    es:{name:"Alguacil",bandoTxt:"Función · sin bando",
+      desc:"Cargo elegido por votación del pueblo. No es una carta ni pertenece a ningún bando.",
+      resp:"Su <b>voto vale doble</b> y en caso de empate decide a quién se lincha. Al morir nombra a su sucesor. Muchos grupos limitan el cargo a una sola de las dos habilidades."},
+    en:{name:"Sheriff",bandoTxt:"Role · no team",
+      desc:"A position chosen by the village's vote. It is not a card and belongs to no team.",
+      resp:"His <b>vote counts double</b> and breaks ties on who is lynched. On death he names a successor. Many groups limit the office to just one of these two powers."}},
+  aldeano:{glyph:"🧑‍🌾",bando:"aldea",
+    es:{name:"Aldeano",bandoTxt:"Bando Aldea",
+      desc:"No tiene poderes especiales, solo su intuición y su sentido común.",
+      resp:"Debe debatir, deducir y votar para <b>descubrir y linchar a los Hombres Lobo</b>."},
+    en:{name:"Villager",bandoTxt:"Village team",
+      desc:"Has no special powers—only intuition and common sense.",
+      resp:"Must debate, deduce, and vote to <b>uncover and lynch the Werewolves</b>."}}
+};
+// devuelve los campos del rol en el idioma actual
+function L(key){ return ROLES[key][lang]; }
 // roles especiales que consumen una carta del mazo
 const SPECIAL_CARDS = ["ladron","cupido","vidente","bruja","nina","cazador"];
 
@@ -594,6 +837,28 @@ function specialCardCount(){ return SPECIAL_CARDS.filter(r=>state.enabled[r]).le
 function deckSize(){ return state.players + (state.enabled.ladron?2:0); }
 function villagerCount(){ return deckSize() - state.werewolves - specialCardCount(); }
 
+/* ============ APLICAR IDIOMA ============ */
+function applyStatic(){
+  document.documentElement.lang = lang;
+  document.title = t("title");
+  $$("[data-i18n]").forEach(el=>{ el.innerHTML = t(el.dataset.i18n); });
+  $$(".lang-switch button").forEach(b=>b.classList.toggle("on", b.dataset.lang===lang));
+}
+function setLang(l){
+  if(!STR[l]) return;
+  lang = l;
+  if(typeof stopSpeak==="function") stopSpeak();
+  applyStatic();
+  buildRoleList();
+  renderPlayers();
+  renderTally();
+  if($("#v2").classList.contains("on")) renderReparto();
+  buildScript();
+  buildReference();
+  loadVoices();
+}
+$$(".lang-switch button").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
+
 /* ============ NAVEGACIÓN ============ */
 function goto(id){
   document.querySelectorAll(".view").forEach(v=>v.classList.toggle("on", v.id===id));
@@ -610,7 +875,7 @@ function renderPlayers(){
   $("#pcount").textContent = state.players;
   $("#minus").disabled = state.players<=8;
   $("#plus").disabled  = state.players>=18;
-  $("#ww-hint").innerHTML = `Lobos recomendados: <b>2</b> con 8–11 jugadores, <b>3</b> con 12–17 y <b>4</b> con 18. Podrás ajustarlo en el siguiente paso.`;
+  $("#ww-hint").innerHTML = t("ww_hint");
 }
 $("#minus").onclick = ()=>{ if(state.players>8){state.players--; syncWW(); renderPlayers(); renderTally();} };
 $("#plus").onclick  = ()=>{ if(state.players<18){state.players++; syncWW(); renderPlayers(); renderTally();} };
@@ -626,29 +891,29 @@ function buildRoleList(){
   list.innerHTML = "";
   const order = ["vidente","bruja","cazador","nina","cupido","ladron","alguacil"];
   order.forEach(key=>{
-    const r = ROLES[key];
+    const r = ROLES[key], loc = r[lang];
     const isFunc = key==="alguacil";
     const el = document.createElement("div");
-    el.className = "role";
+    el.className = "role" + (state.enabled[key] ? " active" : "");
     el.dataset.key = key;
     el.innerHTML = `
       <div class="head">
         <div class="glyph">${r.glyph}</div>
         <div class="meta">
-          <div class="name">${r.name}
-            ${isFunc?'<span class="tag func">función</span>':''}
+          <div class="name">${loc.name}
+            ${isFunc?`<span class="tag func">${t("tag_function")}</span>`:''}
           </div>
-          <div class="bando ${r.bando}">${r.bandoTxt}</div>
+          <div class="bando ${r.bando}">${loc.bandoTxt}</div>
         </div>
         <span class="chev">▼</span>
         <label class="switch" onclick="event.stopPropagation()">
-          <input type="checkbox" data-role="${key}">
+          <input type="checkbox" data-role="${key}" ${state.enabled[key]?'checked':''}>
           <span class="slot"></span>
         </label>
       </div>
       <div class="body">
-        <div class="desc">${r.desc}</div>
-        <div class="resp"><b>Responsabilidad:</b> ${r.resp}</div>
+        <div class="desc">${loc.desc}</div>
+        <div class="resp"><b>${t("resp_label")}</b> ${loc.resp}</div>
       </div>`;
     // abrir/cerrar descripción
     el.querySelector(".head").addEventListener("click",()=>el.classList.toggle("open"));
@@ -668,7 +933,9 @@ function buildRoleList(){
 function renderWW(){
   const rec = recommendedWW(state.players);
   $("#ww-count").textContent = state.werewolves;
-  $("#ww-rec").textContent = `Recomendado para ${state.players} jugadores: ${rec}`;
+  $("#ww-rec").textContent = lang==="es"
+    ? `Recomendado para ${state.players} jugadores: ${rec}`
+    : `Recommended for ${state.players} players: ${rec}`;
   $("#ww-minus").disabled = state.werewolves<=1;
   $("#ww-plus").disabled  = state.werewolves >= state.players-1;
 }
@@ -685,11 +952,15 @@ function renderTally(){
   const warn = $("#comp-warn");
   if(v < 0){
     warn.className="warn show";
-    warn.innerHTML = `Has activado demasiados roles para ${state.players} jugadores. Quita ${-v} rol(es) especial(es) o reduce los Hombres Lobo.`;
+    warn.innerHTML = lang==="es"
+      ? `Has activado demasiados roles para ${state.players} jugadores. Quita ${-v} rol(es) especial(es) o reduce los Hombres Lobo.`
+      : `You've enabled too many roles for ${state.players} players. Remove ${-v} special role(s) or reduce the Werewolves.`;
     $("#to-reparto").disabled = true;
   } else if(v === 0){
     warn.className="warn show";
-    warn.innerHTML = `No queda ningún Aldeano simple. Es jugable, pero el pueblo se quedará sin "carne de cañón": considera añadir jugadores.`;
+    warn.innerHTML = lang==="es"
+      ? `No queda ningún Aldeano simple. Es jugable, pero el pueblo se quedará sin "carne de cañón": considera añadir jugadores.`
+      : `No plain Villagers are left. It's playable, but the village will have no "cannon fodder": consider adding players.`;
     $("#to-reparto").disabled = false;
   } else {
     warn.className="warn";
@@ -704,17 +975,25 @@ function renderReparto(){
   $("#r-esp").textContent   = specialCardCount();
   $("#r-aldea").textContent = v<0?0:v;
 
-  let lead = `${state.players} jugadores · ${state.werewolves} Hombres Lobo`;
-  if(state.enabled.alguacil) lead += ` · con Alguacil (se elige por votación)`;
+  let lead = lang==="es"
+    ? `${state.players} jugadores · ${state.werewolves} Hombres Lobo`
+    : `${state.players} players · ${state.werewolves} Werewolves`;
+  if(state.enabled.alguacil) lead += lang==="es"
+    ? ` · con Alguacil (se elige por votación)`
+    : ` · with Sheriff (chosen by vote)`;
   $("#reparto-lead").textContent = lead;
 
   // descripción del mazo
   const parts = [];
-  parts.push(`${state.werewolves}× Hombre Lobo`);
-  SPECIAL_CARDS.forEach(k=>{ if(state.enabled[k]) parts.push(`1× ${ROLES[k].name}`); });
-  if(v>0) parts.push(`${v}× Aldeano`);
-  let line = `<b>Mazo (${deckSize()} cartas):</b> ${parts.join(" · ")}.`;
-  if(state.enabled.ladron) line += ` Se han añadido 2 cartas extra: <b>2 sobrarán</b> para el Ladrón.`;
+  parts.push(lang==="es" ? `${state.werewolves}× Hombre Lobo` : `${state.werewolves}× Werewolf`);
+  SPECIAL_CARDS.forEach(k=>{ if(state.enabled[k]) parts.push(`1× ${L(k).name}`); });
+  if(v>0) parts.push(lang==="es" ? `${v}× Aldeano` : `${v}× Villager`);
+  let line = lang==="es"
+    ? `<b>Mazo (${deckSize()} cartas):</b> ${parts.join(" · ")}.`
+    : `<b>Deck (${deckSize()} cards):</b> ${parts.join(" · ")}.`;
+  if(state.enabled.ladron) line += lang==="es"
+    ? ` Se han añadido 2 cartas extra: <b>2 sobrarán</b> para el Ladrón.`
+    : ` Two extra cards have been added: <b>2 will be left over</b> for the Thief.`;
   $("#deck-line").innerHTML = line;
 
   // reset reparto si cambió la composición
@@ -736,33 +1015,33 @@ function buildDeck(){
 function buildDealGrid(dealt){
   const grid = $("#deal-grid");
   grid.innerHTML = "";
-  if(!dealt){ grid.innerHTML = `<div style="grid-column:1/-1;color:var(--moon-dim);font-size:14px">Pulsa <b>“Barajar y repartir”</b> para generar las cartas.</div>`; return; }
+  if(!dealt){ grid.innerHTML = `<div style="grid-column:1/-1;color:var(--moon-dim);font-size:14px">${t("deal_empty")}</div>`; return; }
   for(let i=0;i<state.players;i++){
     const seat = document.createElement("div");
     seat.className = "seat" + (state.revealed[i]?" done":"");
-    seat.innerHTML = `<div class="ji">${state.revealed[i]?'✓':'🂠'}</div><div class="jn">Jugador ${i+1}</div>`;
+    seat.innerHTML = `<div class="ji">${state.revealed[i]?'✓':'🂠'}</div><div class="jn">${t("player")} ${i+1}</div>`;
     seat.addEventListener("click",()=>openReveal(i,seat));
     grid.appendChild(seat);
   }
 }
 
-$("#shuffle").onclick = ()=>{ if(villagerCount()<0){alert("Composición inválida: revisa el paso de roles.");return;} buildDeck(); buildDealGrid(true); };
+$("#shuffle").onclick = ()=>{ if(villagerCount()<0){alert(t("invalid_comp"));return;} buildDeck(); buildDealGrid(true); };
 $("#reset-deal").onclick = ()=>{ state.deck=[]; buildDealGrid(false); };
 
 function openReveal(i,seat){
   if(!state.deck.length) return;
   const key = state.deck[i];
-  const r = ROLES[key];
-  $("#rv-who").textContent = `Jugador ${i+1}`;
-  $("#rv-glyph").textContent = r.glyph;
-  $("#rv-name").textContent = r.name;
-  $("#rv-bando").textContent = r.bandoTxt;
-  $("#rv-line").innerHTML = r.desc;
+  const loc = ROLES[key][lang];
+  $("#rv-who").textContent = `${t("player")} ${i+1}`;
+  $("#rv-glyph").textContent = ROLES[key].glyph;
+  $("#rv-name").textContent = loc.name;
+  $("#rv-bando").textContent = loc.bandoTxt;
+  $("#rv-line").innerHTML = loc.desc;
   // mostrar sobrantes solo al Ladrón
   const sob = $("#rv-sob");
   if(key==="ladron" && state.sobrantes.length){
     sob.style.display="block";
-    sob.innerHTML = `Cartas sobrantes que puedes robar: <b>${state.sobrantes.map(k=>ROLES[k].name).join(" · ")}</b>`;
+    sob.innerHTML = `${t("leftover_label")} <b>${state.sobrantes.map(k=>ROLES[k][lang].name).join(" · ")}</b>`;
   } else sob.style.display="none";
   $("#modal").classList.add("show");
   $("#rv-hide").onclick = ()=>{
@@ -794,39 +1073,64 @@ function addOptions(sel, label, arr){
 }
 
 function loadVoices(){
-  if(!synth){ $("#voice-note").textContent="Tu navegador no admite síntesis de voz. Puedes leer el guion en pantalla."; return; }
+  if(!synth){ $("#voice-note").textContent = lang==="es"
+      ? "Tu navegador no admite síntesis de voz. Puedes leer el guion en pantalla."
+      : "Your browser doesn't support speech synthesis. You can read the script on screen."; return; }
   voices = synth.getVoices();
   const sel = $("#voice-select");
   sel.innerHTML="";
 
-  const esAll = voices.filter(v=>/^es/i.test(v.lang));
-  const latam = esAll.filter(isLatam);
-  const spain = esAll.filter(isSpain);
-  const otherEs = esAll.filter(v=>!isLatam(v) && !isSpain(v));
-  const nonEs = voices.filter(v=>!/^es/i.test(v.lang));
+  if(lang==="es"){
+    const esAll = voices.filter(v=>/^es/i.test(v.lang));
+    const latam = esAll.filter(isLatam);
+    const spain = esAll.filter(isSpain);
+    const otherEs = esAll.filter(v=>!isLatam(v) && !isSpain(v));
+    const nonEs = voices.filter(v=>!/^es/i.test(v.lang));
 
-  addOptions(sel,"Español · Latinoamérica", latam);
-  addOptions(sel,"Español · España", spain);
-  addOptions(sel,"Español · otras", otherEs);
-  if(!esAll.length) addOptions(sel,"Otros idiomas", nonEs);
+    addOptions(sel,"Español · Latinoamérica", latam);
+    addOptions(sel,"Español · España", spain);
+    addOptions(sel,"Español · otras", otherEs);
+    if(!esAll.length) addOptions(sel,"Otros idiomas", nonEs);
 
-  // por defecto: voz latinoamericana, prioridad Colombia → México → EE. UU. → cualquiera latam
-  const pick =
-      latam.find(v=>/es[-_]CO/i.test(v.lang)) ||
-      latam.find(v=>/es[-_]MX/i.test(v.lang) || /m[eé]xico|sabina|paulina|dalia|jorge|ra[uú]l/i.test(v.name)) ||
-      latam.find(v=>/es[-_]US/i.test(v.lang) || /estados unidos/i.test(v.name)) ||
-      latam[0] || spain[0] || otherEs[0] || nonEs[0];
-  if(pick) sel.value = pick.name;
+    // por defecto: voz latinoamericana, prioridad Colombia → México → EE. UU. → cualquiera latam
+    const pick =
+        latam.find(v=>/es[-_]CO/i.test(v.lang)) ||
+        latam.find(v=>/es[-_]MX/i.test(v.lang) || /m[eé]xico|sabina|paulina|dalia|jorge|ra[uú]l/i.test(v.name)) ||
+        latam.find(v=>/es[-_]US/i.test(v.lang) || /estados unidos/i.test(v.name)) ||
+        latam[0] || spain[0] || otherEs[0] || nonEs[0];
+    if(pick) sel.value = pick.name;
 
-  if(latam.length){
-    $("#voice-note").textContent = `Usando una voz latinoamericana (${pick.lang}). Hay ${latam.length} disponible(s); puedes cambiarla arriba.`;
-  } else if(esAll.length){
-    $("#voice-note").textContent = "No hay voces latinoamericanas en tu sistema; se usa una voz en español de España. Para una voz latina, instala una (p. ej. Español-México) en la configuración de tu sistema.";
+    if(latam.length){
+      $("#voice-note").textContent = `Usando una voz latinoamericana (${pick.lang}). Hay ${latam.length} disponible(s); puedes cambiarla arriba.`;
+    } else if(esAll.length){
+      $("#voice-note").textContent = "No hay voces latinoamericanas en tu sistema; se usa una voz en español de España. Para una voz latina, instala una (p. ej. Español-México) en la configuración de tu sistema.";
+    } else {
+      $("#voice-note").textContent = "No se encontraron voces en español. Instala una voz latinoamericana en tu sistema, o usa Chrome (incluye «Google español de Estados Unidos»).";
+    }
   } else {
-    $("#voice-note").textContent = "No se encontraron voces en español. Instala una voz latinoamericana en tu sistema, o usa Chrome (incluye «Google español de Estados Unidos»).";
+    const enAll = voices.filter(v=>/^en/i.test(v.lang));
+    const gb = enAll.filter(v=>/en[-_]GB/i.test(v.lang));
+    const us = enAll.filter(v=>/en[-_]US/i.test(v.lang));
+    const otherEn = enAll.filter(v=>!/en[-_](GB|US)/i.test(v.lang));
+    const nonEn = voices.filter(v=>!/^en/i.test(v.lang));
+
+    addOptions(sel,"English · UK", gb);
+    addOptions(sel,"English · US", us);
+    addOptions(sel,"English · other", otherEn);
+    if(!enAll.length) addOptions(sel,"Other languages", nonEn);
+
+    // por defecto: una voz grave inglesa; prioridad Reino Unido → EE. UU. → cualquiera
+    const pick = gb[0] || us[0] || otherEn[0] || nonEn[0];
+    if(pick) sel.value = pick.name;
+
+    if(enAll.length){
+      $("#voice-note").textContent = `Using an English voice (${pick.lang}). ${enAll.length} available; you can change it above.`;
+    } else {
+      $("#voice-note").textContent = "No English voices found on your system. Install one, or use Chrome (includes “Google US English”).";
+    }
   }
 }
-if(synth){ synth.onvoiceschanged = loadVoices; loadVoices(); }
+if(synth){ synth.onvoiceschanged = loadVoices; }
 
 function currentVoice(){ return voices.find(v=>v.name===$("#voice-select").value); }
 
@@ -834,7 +1138,7 @@ function speak(text, onend){
   if(!synth){ if(onend)onend(); return; }
   const u = new SpeechSynthesisUtterance(text);
   const v = currentVoice();
-  if(v){ u.voice=v; u.lang=v.lang; } else u.lang="es-MX";
+  if(v){ u.voice=v; u.lang=v.lang; } else u.lang = lang==="es" ? "es-MX" : "en-US";
   u.rate = parseFloat($("#rate").value);
   u.pitch = parseFloat($("#pitch").value);
   u.onstart = ()=>$("#orb").classList.add("speaking");
@@ -846,7 +1150,7 @@ function stopSpeak(){ if(synth)synth.cancel(); $("#orb").classList.remove("speak
 
 $("#rate").oninput = e=>$("#rate-val").textContent=parseFloat(e.target.value).toFixed(2);
 $("#pitch").oninput = e=>$("#pitch-val").textContent=parseFloat(e.target.value).toFixed(2);
-$("#test-voice").onclick = ()=>{ stopSpeak(); speak("El pueblo de Castronegro se entrega al sueño. Cerrad todos los ojos... la noche ha comenzado."); };
+$("#test-voice").onclick = ()=>{ stopSpeak(); speak(t("test_voice_text")); };
 $("#stop-voice").onclick = stopSpeak;
 
 /* --- generación dinámica del guion según roles activos --- */
@@ -857,27 +1161,29 @@ function buildSteps(phase){
   const e = state.enabled;
   const s = [];
   if(phase==="first" || phase==="night"){
-    s.push({t:"Anochece", l:"El pueblo de Castronegro se entrega al sueño. Cerrad todos los ojos. La noche ha comenzado."});
+    s.push({t:t("n_nightfall_t"), l:t("n_nightfall_l")});
     if(phase==="first" && e.ladron)
-      s.push({t:"Ladrón", l:"Ladrón, despierta. Aquí tienes las dos cartas sobrantes. Decide si conservas tu destino o robas uno nuevo. Ladrón, vuelve a dormir."});
+      s.push({t:t("n_thief_t"), l:t("n_thief_l")});
     if(phase==="first" && e.cupido)
-      s.push({t:"Cupido", l:"Cupido, despierta. Lanza tus flechas y une a dos corazones que latirán como uno solo. Cupido, vuelve a dormir. Enamorados, abrid los ojos y reconoceos en silencio. Ahora, volved a dormir."});
+      s.push({t:t("n_cupid_t"), l:t("n_cupid_l")});
     if(e.vidente)
-      s.push({t:"Vidente", l:"Vidente, despierta. Señala a quien deseas conocer. Te muestro su verdadero rostro. Vidente, vuelve a dormir."});
+      s.push({t:t("n_seer_t"), l:t("n_seer_l")});
     // lobos (siempre), con aviso de la niña si está en juego
-    let loboTxt = "Hombres Lobo, despertad. En silencio, elegid juntos a vuestra presa de esta noche.";
-    if(e.nina) loboTxt += " Niña, si te atreves, observa entre las sombras; pero que no te descubran.";
-    loboTxt += " Hombres Lobo, ya tenéis vuestra víctima. Volved a dormir.";
-    s.push({t:"Hombres Lobo"+(e.nina?" · Niña":""), l:loboTxt});
+    let loboTxt = t("n_wolves_l_base");
+    if(e.nina) loboTxt += t("n_wolves_l_girl");
+    loboTxt += t("n_wolves_l_tail");
+    s.push({t:t("n_wolves_t")+(e.nina?t("n_wolves_girl_suffix"):""), l:loboTxt});
     if(e.bruja)
-      s.push({t:"Bruja", l:"Bruja, despierta. Esta noche la víctima es quien yo te señalo. ¿Usarás tu Poción de la Vida para salvarle? ¿Emplearás tu Poción de la Muerte contra alguien? Decide. Bruja, vuelve a dormir."});
+      s.push({t:t("n_witch_t"), l:t("n_witch_l")});
   } else { // day
-    s.push({t:"Amanece", l:"Amanece en Castronegro. Que todo el pueblo abra los ojos. Veamos qué nos ha dejado la noche."});
-    s.push({t:"Las víctimas", l:"Esta noche ha caído quien yo señalo. Revela tu carta. Que descanse."});
-    if(e.cazador) s.push({t:"Recordatorio · Cazador", l:"Si el Cazador ha muerto, que dispare ahora su última flecha y elija a quién se lleva consigo."});
-    s.push({t:"Debate", l:"Tenéis tiempo para debatir, acusar y defenderos. Buscad al lobo que se esconde entre vosotros."});
-    s.push({t:"Votación", l:"Ha llegado la hora. Señalad con el dedo a quien queréis linchar. El pueblo ha hablado: muestra tu carta."+(state.enabled.alguacil?" Recordad que el voto del Alguacil cuenta doble.":"")});
-    s.push({t:"Cae la noche", l:"El pueblo vuelve a dormir. Que regrese la oscuridad sobre Castronegro."});
+    s.push({t:t("n_dawn_t"), l:t("n_dawn_l")});
+    s.push({t:t("n_victims_t"), l:t("n_victims_l")});
+    if(e.cazador) s.push({t:t("n_hunter_t"), l:t("n_hunter_l")});
+    s.push({t:t("n_debate_t"), l:t("n_debate_l")});
+    let voteTxt = t("n_vote_l_base");
+    if(state.enabled.alguacil) voteTxt += t("n_vote_l_sheriff");
+    s.push({t:t("n_vote_t"), l:voteTxt});
+    s.push({t:t("n_nightend_t"), l:t("n_nightend_l")});
   }
   return s;
 }
@@ -892,7 +1198,7 @@ function buildScript(){
     el.innerHTML = `
       <div class="idx">${i+1}</div>
       <div class="txt"><div class="st">${st.t}</div><div class="sl">${st.l}</div></div>
-      <button class="play" title="Leer en alto">▶</button>`;
+      <button class="play" title="${lang==='es'?'Leer en alto':'Read aloud'}">▶</button>`;
     el.querySelector(".play").addEventListener("click",()=>{ stopSpeak(); markCurrent(i); speak(st.l, ()=>markCurrent(-1)); });
     wrap.appendChild(el);
   });
@@ -906,7 +1212,10 @@ $$(".phase-tabs button").forEach(b=>{
   b.addEventListener("click",()=>{
     stopSpeak();
     currentPhase = b.dataset.phase;
-    $$(".phase-tabs button").forEach(x=>x.className="");
+    $$(".phase-tabs button").forEach(x=>{
+      x.className="";
+      x.setAttribute("data-i18n", x.dataset.i18n); // conservar clave
+    });
     b.className = "on " + (currentPhase==="day"?"day":currentPhase==="first"||currentPhase==="night"?"night":"");
     buildScript();
   });
@@ -925,47 +1234,61 @@ $("#play-all").onclick = ()=>{
 $("#stop-all").onclick = stopSpeak;
 
 /* ============ PASO 5: REFERENCIA ============ */
-// equivalencia carta del manual (EN) + imagen de la carta
+// equivalencia carta del manual (EN) + imagen de la carta (bilingüe)
 const REF = {
-  hombre_lobo:{en:"Werewolf (×4)", img:"Fondo rojo; criatura/sombra negra de muchos brazos con rostro pálido y boca roja."},
-  aldeano:{en:"Ordinary Townsfolk (×13)", img:"Fondo beige; siluetas de aldeanos en aspa alrededor de una espiral amarilla central."},
-  vidente:{en:"Fortune Teller", img:"Fondo morado; un gran ojo central flanqueado por dos manos."},
-  ladron:{en:"Thief", img:"Fondo turquesa; dos manos extendidas sobre un motivo de agua/ojo en remolino."},
-  cazador:{en:"Hunter", img:"Fondo verde; un rifle y una diana de círculos concéntricos sobre un rostro de perfil."},
-  cupido:{en:"Cupido", img:"Fondo azul; figura rosada de Cupido alado con arco y flecha."},
-  bruja:{en:"Witch", img:"Fondo naranja; figura de bruja de cabello claro con dos frascos de poción."},
-  nina:{en:"Little Girl", img:"Carta nocturna azul oscuro; una niña con una gran sombra acechante y el pueblo con luna al fondo."},
-  alguacil:{en:"Sheriff", img:"Carta oscura con una medalla de cinta y roseta. No se reparte: es un cargo."}
+  hombre_lobo:{en:"Werewolf (×4)", img:{es:"Fondo rojo; criatura/sombra negra de muchos brazos con rostro pálido y boca roja.", en:"Red background; a black, many-armed creature/shadow with a pale face and red mouth."}},
+  aldeano:{en:"Ordinary Townsfolk (×13)", img:{es:"Fondo beige; siluetas de aldeanos en aspa alrededor de una espiral amarilla central.", en:"Beige background; villager silhouettes crossed around a central yellow spiral."}},
+  vidente:{en:"Fortune Teller", img:{es:"Fondo morado; un gran ojo central flanqueado por dos manos.", en:"Purple background; a large central eye flanked by two hands."}},
+  ladron:{en:"Thief", img:{es:"Fondo turquesa; dos manos extendidas sobre un motivo de agua/ojo en remolino.", en:"Turquoise background; two open hands over a swirling water/eye motif."}},
+  cazador:{en:"Hunter", img:{es:"Fondo verde; un rifle y una diana de círculos concéntricos sobre un rostro de perfil.", en:"Green background; a rifle and a concentric-ring target over a face in profile."}},
+  cupido:{en:"Cupido", img:{es:"Fondo azul; figura rosada de Cupido alado con arco y flecha.", en:"Blue background; a pink winged Cupid figure with bow and arrow."}},
+  bruja:{en:"Witch", img:{es:"Fondo naranja; figura de bruja de cabello claro con dos frascos de poción.", en:"Orange background; a fair-haired witch figure holding two potion vials."}},
+  nina:{en:"Little Girl", img:{es:"Carta nocturna azul oscuro; una niña con una gran sombra acechante y el pueblo con luna al fondo.", en:"Dark-blue night card; a little girl with a large looming shadow and the moonlit village behind."}},
+  alguacil:{en:"Sheriff", img:{es:"Carta oscura con una medalla de cinta y roseta. No se reparte: es un cargo.", en:"Dark card with a ribbon medal and rosette. Not dealt: it's an office."}}
 };
-const NARRADOR_REF = {glyph:"📖", es:"Narrador", en:"Moderator", bando:"func", bandoTxt:"Dirige la partida",
-  img:"No es una carta. Modera el debate, llama a los personajes y revela las muertes.",
-  resp:"Crea la atmósfera, interpreta las reglas y nunca delata posiciones con la voz."};
+const NARRADOR_REF = {glyph:"📖", manualEn:"Moderator", bando:"func",
+  es:{name:"Narrador", bandoTxt:"Dirige la partida",
+    img:"No es una carta. Modera el debate, llama a los personajes y revela las muertes.",
+    resp:"Crea la atmósfera, interpreta las reglas y nunca delata posiciones con la voz."},
+  en:{name:"Narrator", bandoTxt:"Runs the game",
+    img:"Not a card. Moderates the debate, calls the characters, and reveals deaths.",
+    resp:"Sets the mood, interprets the rules, and never gives away positions with his voice."}};
 
 function buildReference(){
   const wrap = $("#ref-list");
   wrap.innerHTML = "";
   const order = ["hombre_lobo","aldeano","vidente","ladron","cazador","cupido","bruja","nina","alguacil"];
   order.forEach(key=>{
-    const r = ROLES[key], x = REF[key];
-    wrap.appendChild(refBlock(r.glyph, r.name, x.en, r.bando, r.bandoTxt, x.img, r.resp));
+    const loc = ROLES[key][lang], x = REF[key];
+    wrap.appendChild(refBlock(ROLES[key].glyph, loc.name, x.en, ROLES[key].bando, loc.bandoTxt, x.img[lang], loc.resp));
   });
-  const n = NARRADOR_REF;
-  wrap.appendChild(refBlock(n.glyph, n.es, n.en, n.bando, n.bandoTxt, n.img, n.resp));
+  const n = NARRADOR_REF, nl = n[lang];
+  wrap.appendChild(refBlock(n.glyph, nl.name, n.manualEn, n.bando, nl.bandoTxt, nl.img, nl.resp));
 
   // orden de la noche
   const ord = $("#ref-order");
   ord.innerHTML = "";
-  const steps = [
-    {c:"setup", t:"Ladrón", s:"Solo la primera noche · cambia (o no) su carta"},
-    {c:"setup", t:"Cupido", s:"Solo la primera noche · enamora a dos jugadores"},
-    {c:"", t:"Vidente", s:"Mira la carta de un jugador"},
-    {c:"", t:"Hombres Lobo", s:"Eligen víctima · la Niña puede espiar aquí"},
-    {c:"", t:"Bruja", s:"Poción de Vida y/o de Muerte"},
-    {c:"day", t:"Día", s:"Amanecer, debate, votación y linchamiento"}
-  ];
+  const cls = ["setup","setup","","","","day"];
+  const steps = lang==="es"
+    ? [
+      {t:"Ladrón", s:"Solo la primera noche · cambia (o no) su carta"},
+      {t:"Cupido", s:"Solo la primera noche · enamora a dos jugadores"},
+      {t:"Vidente", s:"Mira la carta de un jugador"},
+      {t:"Hombres Lobo", s:"Eligen víctima · la Niña puede espiar aquí"},
+      {t:"Bruja", s:"Poción de Vida y/o de Muerte"},
+      {t:"Día", s:"Amanecer, debate, votación y linchamiento"}
+    ]
+    : [
+      {t:"Thief", s:"First night only · swaps (or not) their card"},
+      {t:"Cupid", s:"First night only · makes two players fall in love"},
+      {t:"Seer", s:"Looks at a player's card"},
+      {t:"Werewolves", s:"Choose a victim · the Little Girl may spy here"},
+      {t:"Witch", s:"Healing and/or Death potion"},
+      {t:"Day", s:"Dawn, debate, vote, and lynching"}
+    ];
   steps.forEach((s,i)=>{
     const el=document.createElement("div");
-    el.className="ro "+s.c;
+    el.className="ro "+cls[i];
     el.innerHTML=`<div class="num">${i+1}</div><div class="lbl">${s.t}<small>${s.s}</small></div>`;
     ord.appendChild(el);
   });
@@ -982,16 +1305,19 @@ function refBlock(glyph, es, en, bando, bandoTxt, img, resp){
         <span class="en">${en}</span>
         <span class="bd ${bando}">${bandoTxt}</span>
       </div>
-      <div class="img"><b>Imagen de la carta:</b> ${img}</div>
+      <div class="img"><b>${t("ref_img_label")}</b> ${img}</div>
       <div class="resp">${resp}</div>
     </div>`;
   return el;
 }
 
 /* ============ INIT ============ */
+applyStatic();
 buildRoleList();
 renderPlayers();
 renderTally();
+buildReference();
+if(synth) loadVoices();
 </script>
 </body>
 </html>
