@@ -837,6 +837,59 @@ function specialCardCount(){ return SPECIAL_CARDS.filter(r=>state.enabled[r]).le
 function deckSize(){ return state.players + (state.enabled.ladron?2:0); }
 function villagerCount(){ return deckSize() - state.werewolves - specialCardCount(); }
 
+/* ============ PERSISTENCIA (localStorage) ============ */
+const STORE_KEY = "castronegro:v1";
+let currentView = "intro";   // última pantalla activa
+let savedVoice = null;        // nombre de voz guardado, aplicado cuando las voces carguen
+
+function saveState(){
+  try{
+    localStorage.setItem(STORE_KEY, JSON.stringify({
+      lang,
+      players: state.players,
+      werewolves: state.werewolves,
+      enabled: state.enabled,
+      phase: currentPhase,
+      view: currentView,
+      voice: $("#voice-select").value,
+      rate: $("#rate").value,
+      pitch: $("#pitch").value
+    }));
+  }catch(e){ /* almacenamiento no disponible (modo privado, etc.): seguir sin persistir */ }
+}
+
+function loadState(){
+  let d;
+  try{ d = JSON.parse(localStorage.getItem(STORE_KEY)); }catch(e){ return; }
+  if(!d || typeof d!=="object") return;
+
+  if(d.lang && STR[d.lang]) lang = d.lang;
+
+  if(Number.isFinite(d.players)) state.players = Math.min(18, Math.max(8, Math.round(d.players)));
+
+  if(d.enabled && typeof d.enabled==="object")
+    Object.keys(state.enabled).forEach(k=>{ if(typeof d.enabled[k]==="boolean") state.enabled[k] = d.enabled[k]; });
+
+  // lobos: validar tras fijar jugadores (rango depende de players)
+  if(Number.isFinite(d.werewolves))
+    state.werewolves = Math.min(state.players-1, Math.max(1, Math.round(d.werewolves)));
+
+  if(["first","night","day"].includes(d.phase)) currentPhase = d.phase;
+  if(["intro","v0","v1","v2","v3","v4"].includes(d.view)) currentView = d.view;
+
+  if(typeof d.voice==="string") savedVoice = d.voice;
+  // el input range clampa solo a su min/max al asignar .value
+  if(d.rate!=null){ $("#rate").value = d.rate; $("#rate-val").textContent = parseFloat($("#rate").value).toFixed(2); }
+  if(d.pitch!=null){ $("#pitch").value = d.pitch; $("#pitch-val").textContent = parseFloat($("#pitch").value).toFixed(2); }
+}
+
+function applyPhaseTab(){
+  $$(".phase-tabs button").forEach(x=>{ x.className=""; });
+  const active = document.querySelector(`.phase-tabs button[data-phase="${currentPhase}"]`)
+             || document.querySelector('.phase-tabs button[data-phase="first"]');
+  if(active) active.className = "on " + (currentPhase==="day" ? "day" : "night");
+}
+
 /* ============ APLICAR IDIOMA ============ */
 function applyStatic(){
   document.documentElement.lang = lang;
@@ -846,6 +899,7 @@ function applyStatic(){
 }
 function setLang(l){
   if(!STR[l]) return;
+  savedVoice = null; // al cambiar idioma, dejar que se elija la voz por defecto del nuevo idioma
   lang = l;
   if(typeof stopSpeak==="function") stopSpeak();
   applyStatic();
@@ -856,17 +910,20 @@ function setLang(l){
   buildScript();
   buildReference();
   loadVoices();
+  saveState();
 }
 $$(".lang-switch button").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
 
 /* ============ NAVEGACIÓN ============ */
 function goto(id){
+  currentView = id;
   document.querySelectorAll(".view").forEach(v=>v.classList.toggle("on", v.id===id));
   document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("active", b.dataset.go===id));
   window.scrollTo({top:0,behavior:"smooth"});
   if(id==="v2") renderReparto();
   if(id==="v3") buildScript();
   if(id==="v4") buildReference();
+  saveState();
 }
 $$("[data-go]").forEach(b=>b.addEventListener("click",()=>goto(b.dataset.go)));
 
@@ -877,8 +934,8 @@ function renderPlayers(){
   $("#plus").disabled  = state.players>=18;
   $("#ww-hint").innerHTML = t("ww_hint");
 }
-$("#minus").onclick = ()=>{ if(state.players>8){state.players--; syncWW(); renderPlayers(); renderTally();} };
-$("#plus").onclick  = ()=>{ if(state.players<18){state.players++; syncWW(); renderPlayers(); renderTally();} };
+$("#minus").onclick = ()=>{ if(state.players>8){state.players--; syncWW(); renderPlayers(); renderTally(); saveState();} };
+$("#plus").onclick  = ()=>{ if(state.players<18){state.players++; syncWW(); renderPlayers(); renderTally(); saveState();} };
 
 function syncWW(){ // mantener lobos en la recomendación si el usuario no los ha tocado manualmente "muy lejos"
   const rec = recommendedWW(state.players);
@@ -926,6 +983,7 @@ function buildRoleList(){
       state.enabled[key] = e.target.checked;
       e.target.closest(".role").classList.toggle("active",e.target.checked);
       renderTally();
+      saveState();
     });
   });
 }
@@ -939,8 +997,8 @@ function renderWW(){
   $("#ww-minus").disabled = state.werewolves<=1;
   $("#ww-plus").disabled  = state.werewolves >= state.players-1;
 }
-$("#ww-minus").onclick = ()=>{ if(state.werewolves>1){state.werewolves--; renderWW(); renderTally();} };
-$("#ww-plus").onclick  = ()=>{ if(state.werewolves<state.players-1){state.werewolves++; renderWW(); renderTally();} };
+$("#ww-minus").onclick = ()=>{ if(state.werewolves>1){state.werewolves--; renderWW(); renderTally(); saveState();} };
+$("#ww-plus").onclick  = ()=>{ if(state.werewolves<state.players-1){state.werewolves++; renderWW(); renderTally(); saveState();} };
 
 function renderTally(){
   renderWW();
@@ -1129,6 +1187,9 @@ function loadVoices(){
       $("#voice-note").textContent = "No English voices found on your system. Install one, or use Chrome (includes “Google US English”).";
     }
   }
+
+  // restaurar la voz guardada si sigue disponible (las voces cargan de forma asíncrona)
+  if(savedVoice && voices.some(v=>v.name===savedVoice)) sel.value = savedVoice;
 }
 if(synth){ synth.onvoiceschanged = loadVoices; }
 
@@ -1148,8 +1209,9 @@ function speak(text, onend){
 }
 function stopSpeak(){ if(synth)synth.cancel(); $("#orb").classList.remove("speaking"); markCurrent(-1); }
 
-$("#rate").oninput = e=>$("#rate-val").textContent=parseFloat(e.target.value).toFixed(2);
-$("#pitch").oninput = e=>$("#pitch-val").textContent=parseFloat(e.target.value).toFixed(2);
+$("#rate").oninput = e=>{ $("#rate-val").textContent=parseFloat(e.target.value).toFixed(2); saveState(); };
+$("#pitch").oninput = e=>{ $("#pitch-val").textContent=parseFloat(e.target.value).toFixed(2); saveState(); };
+$("#voice-select").onchange = ()=>{ savedVoice = $("#voice-select").value; saveState(); };
 $("#test-voice").onclick = ()=>{ stopSpeak(); speak(t("test_voice_text")); };
 $("#stop-voice").onclick = stopSpeak;
 
@@ -1218,6 +1280,7 @@ $$(".phase-tabs button").forEach(b=>{
     });
     b.className = "on " + (currentPhase==="day"?"day":currentPhase==="first"||currentPhase==="night"?"night":"");
     buildScript();
+    saveState();
   });
 });
 
@@ -1312,12 +1375,15 @@ function refBlock(glyph, es, en, bando, bandoTxt, img, resp){
 }
 
 /* ============ INIT ============ */
+loadState();          // restaurar selecciones antes de renderizar
 applyStatic();
 buildRoleList();
 renderPlayers();
 renderTally();
+applyPhaseTab();
 buildReference();
 if(synth) loadVoices();
+goto(currentView);    // reabrir la última pantalla (por defecto "intro")
 </script>
 </body>
 </html>
